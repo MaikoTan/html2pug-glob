@@ -41,7 +41,7 @@ export const handler = async (argv: ArgumentsCamelCase<Options>) => {
 };
 
 const cli = yargs(process.argv.slice(2))
-  .scriptName("html2pug")
+  .scriptName("html2pug-glob")
   .command(
     "$0 <file..>",
     "Convert HTML file to Pug",

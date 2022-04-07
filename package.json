@@ -11,6 +11,12 @@
     "format": "prettier --write '!./lib/**/*' '**/*.{ts,js,json,md}'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "index.js",
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
   "author": "Maiko Tan <maiko.tan.coding@gmail.com>",
   "license": "MIT",
   "devDependencies": {
