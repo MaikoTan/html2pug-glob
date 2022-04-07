@@ -1,0 +1,29 @@
+{
+  "name": "html2pug-glob",
+  "version": "0.0.1",
+  "description": "Just like html2pug, but supports file glob.",
+  "main": "index.js",
+  "bin": {
+    "html2pug-glob": "index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write '!./lib/**/*' '**/*.{ts,js,json,md}'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maiko Tan <maiko.tan.coding@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^17.0.23",
+    "@types/yargs": "^17.0.10",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "fast-glob": "^3.2.11",
+    "fs-extra": "^10.0.1",
+    "html2pug": "^4.0.0",
+    "yargs": "^17.4.0"
+  }
+}

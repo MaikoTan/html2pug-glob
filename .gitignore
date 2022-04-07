@@ -1,0 +1,16 @@
+## Node
+node_modules/
+
+## Build
+lib/
+
+## Test
+coverage/
+
+## Yarn
+yarn-error.log
+
+## VSCode
+.vscode/
+!./vscode/settings.json
+!./vscode/extensions.json
