@@ -49,6 +49,14 @@ Options:
   -v, --version     Show version number                                [boolean]
 ```
 
+You can also pass [`fast-glob`](https://www.npmjs.com/package/fast-glob#options-3) options via cli.
+
+For example:
+
+```sh
+$ html2pug-glob --cwd ./src --dot **/*.html
+```
+
 ## License
 
 This project is under the [MIT License](./LISENCE).

@@ -1,17 +1,19 @@
+#!/bin/env node
 import path from "path";
 
 import fs from "fs-extra";
-import glob from "fast-glob";
-import yargs, { ArgumentsCamelCase, Argv } from "yargs";
+import glob, { Options as GlobOptions } from "fast-glob";
+import yargs, { ArgumentsCamelCase, Argv, string } from "yargs";
 
 import * as pug from "./utils";
 
-interface Options {
+interface Options extends GlobOptions {
   file?: string;
   output?: string;
   o?: string;
   "output-dir"?: string;
   d?: string;
+  ext?: string;
 }
 
 export const handler = async (argv: ArgumentsCamelCase<Options>) => {
@@ -21,10 +23,10 @@ export const handler = async (argv: ArgumentsCamelCase<Options>) => {
     throw new Error("Invalid file path: " + file);
   }
 
-  const files = await glob(file, { dot: true });
+  const files = await glob(file, { dot: true, ...argv });
   if (files.length === 1) {
     // if there is only one file, then the |output| option should functional.
-    let output = argv.output || pugName(files[0]);
+    let output = argv.output || pugName(files[0], argv.ext);
     if (argv.outputDir) {
       output = path.join(argv.outputDir, path.basename(output));
     }
@@ -44,7 +46,7 @@ const cli = yargs(process.argv.slice(2))
   .scriptName("html2pug-glob")
   .command(
     "$0 <file..>",
-    "Convert HTML file to Pug",
+    "Convert HTML file to Pug / Jade",
     (yargs: Argv) => {
       yargs
         .positional("file", {
@@ -61,6 +63,12 @@ const cli = yargs(process.argv.slice(2))
           type: "string",
           alias: "d",
           description: "Output directory",
+          default: ".",
+        })
+        .option("ext", {
+          type: "string",
+          description: "Extension of generated files.",
+          default: "pug",
         });
     },
     handler
@@ -70,8 +78,8 @@ const cli = yargs(process.argv.slice(2))
   .version()
   .alias("v", "version").argv;
 
-const pugName = (file: string) =>
-  path.join(path.parse(file).dir, path.basename(file, ".html") + ".pug");
+const pugName = (file: string, ext = "pug") =>
+  file.replace(/\.\w+$/, "." + ext);
 
 /**
  * convert html to pug
